@@ -1,4 +1,4 @@
-package com.company;
+package com.company.notes;
 
 import com.company.comparators.DateComparator;
 import com.company.comparators.EmailComparator;
@@ -21,7 +21,6 @@ public class NoteBook {
 
     public NoteBook() {
         notes = new Note[0];
-        readFromFile();
     }
 
     public NoteBook(Note[] notes) {
@@ -41,6 +40,11 @@ public class NoteBook {
         notes[notes.length-1] = note;
     }
 
+    public void addNote(String theme, String date, String email, String text){
+        Note note = new Note(theme, date, email, text);
+        addNote(note);
+    }
+
     public void sortByTheme(){
         Arrays.sort(notes, new ThemeComparator());
     }
@@ -51,6 +55,10 @@ public class NoteBook {
 
     public void sortByEmail(){
         Arrays.sort(notes, new EmailComparator());
+    }
+
+    public void open(){
+        readFromFile();
     }
 
     private void readFromFile(){
@@ -92,5 +100,45 @@ public class NoteBook {
         for (Note n: notes) {
             System.out.println(n);
         }
+    }
+
+    public NoteBook findByTheme(String theme){
+        NoteBook res = new NoteBook();
+        for (Note n: notes) {
+            if (n.getTheme().contains(theme)){
+                res.addNote(n);
+            }
+        }
+        return res;
+    }
+
+    public NoteBook findByDate(String date){
+        NoteBook res = new NoteBook();
+        for (Note n: notes) {
+            if (n.dateToString().contains(date)){
+                res.addNote(n);
+            }
+        }
+        return res;
+    }
+
+    public NoteBook findByEmail(String email){
+        NoteBook res = new NoteBook();
+        for (Note n: notes) {
+            if (n.getEmail().contains(email)){
+                res.addNote(n);
+            }
+        }
+        return res;
+    }
+
+    public NoteBook findHasWord(String word){
+        NoteBook res = new NoteBook();
+        for (Note n: notes) {
+            if (n.getMessage().contains(word)){
+                res.addNote(n);
+            }
+        }
+        return res;
     }
 }

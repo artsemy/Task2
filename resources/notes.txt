@@ -1,20 +1,20 @@
 theme: theme1
 date: 2019.09.20 12:00:00
-email: email1@mail.ru
+email: email1@yandex.ru
 message: text1
---------------------
-theme: theme2
-date: 2019.09.20 13:00:00
-email: email4@mail.ru
-message: text2
 --------------------
 theme: theme3
 date: 2019.09.20 14:00:00
-email: email2@mail.ru
+email: email2@yandex.ru
 message: text4
 --------------------
 theme: theme4
-date: 2019.09.20 15:00:00
+date: 2019.09.20 13:00:00
 email: email3@mail.ru
 message: text3
+--------------------
+theme: theme2
+date: 2019.09.20 15:00:00
+email: email4@mail.ru
+message: text2
 --------------------

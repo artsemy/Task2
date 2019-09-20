@@ -1,5 +1,6 @@
-package com.company;
+package com.company.notes;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ public class Note {
     private Date date;
     private String email;
     private String message;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
     public Note() {
     }
@@ -18,6 +20,18 @@ public class Note {
         this.date = date;
         this.email = email;
         this.message = message;
+    }
+
+    public Note(String theme, String date, String email, String message) {
+        try {
+            Date d = dateFormat.parse(date);
+            this.theme = theme;
+            this.date = d;
+            this.email = email;
+            this.message = message;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTheme() {
@@ -54,10 +68,15 @@ public class Note {
 
     @Override
     public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+
         return "theme: " + theme + "\n" +
-                "date: " + dateFormat.format(date) + "\n" +
+                "date: " + dateToString() + "\n" +
                 "email: " + email + "\n" +
                 "message: " + message + "\n";
+    }
+
+    public String dateToString(){
+        String res = dateFormat.format(date);
+        return res;
     }
 }

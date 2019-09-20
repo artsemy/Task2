@@ -1,6 +1,6 @@
 package com.company.comparators;
 
-import com.company.Note;
+import com.company.notes.Note;
 
 import java.util.Comparator;
 

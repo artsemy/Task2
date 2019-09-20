@@ -1,11 +1,11 @@
 package com.company;
 
+import com.company.notes.NoteBook;
+
 public class Main {
 
     public static void main(String[] args) {
-        NoteBook book = new NoteBook();
-        book.sortByTheme();
-        book.print();
-        book.close();
+        Menu menu = new Menu();
+        menu.mainMenu();
     }
 }
