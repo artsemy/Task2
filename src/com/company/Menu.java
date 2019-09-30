@@ -3,6 +3,8 @@ package com.company;
 import com.company.notes.NoteBook;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Menu {
 
@@ -111,6 +113,7 @@ public class Menu {
                 case "date":
                 case "email":
                 case "word":
+                case "ew":
                     res = findBy(command);
                     res.print();
                     break;
@@ -131,6 +134,7 @@ public class Menu {
         System.out.println("'date' - to find by date");
         System.out.println("'email' - to find by email");
         System.out.println("'word' - to find by word in text");
+        System.out.println("'ew' - to find by email and word");
         System.out.println("'sort' - to sort founded");
         System.out.println("'exit' - to exit");
     }
@@ -144,22 +148,66 @@ public class Menu {
                 findWord = scanner.nextLine();
                 return noteBook.findByTheme(findWord);
             case "date":
-                System.out.println("insert date");
-                findWord = scanner.nextLine();
+//                do {
+                    System.out.println("insert date");
+                    findWord = scanner.nextLine();
+//                } while (!checkDate(findWord));
                 return noteBook.findByDate(findWord);
             case "email":
-                System.out.println("insert email");
-                findWord = scanner.nextLine();
+//                do {
+                    System.out.println("insert email");
+                    findWord = scanner.nextLine();
+//                } while (!checkEmail(findWord));
                 return noteBook.findByEmail(findWord);
             case "word":
                 System.out.println("insert word");
                 findWord = scanner.nextLine();
                 return noteBook.findHasWord(findWord);
+//                return noteBook.findHasWord(findWord, 1);
+            case "ew":
+                System.out.println("insert email");
+                String email = scanner.nextLine();
+                System.out.println("insert word");
+                findWord = scanner.nextLine();
+                return noteBook.findByEmailWord(email, findWord);
         }
         return new NoteBook();
     }
 
     public void addMenu(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("insert theme");
+        String line = scanner.nextLine();
+        String theme = line;
+        String date;
+        do {
+            System.out.println("insert date");
+            line = scanner.nextLine();
+            date = line;
+        } while (!checkDate(line));
+        String email;
+        do {
+            System.out.println("insert email");
+            line = scanner.nextLine();
+            email = line;
+        } while (!checkEmail(line));
+        System.out.println("insert text");
+        line = scanner.nextLine();
+        String text = line;
+        noteBook.addNote(theme, date, email, text);
+        System.out.println("added!!!");
+    }
 
+    private boolean checkDate(String date){
+        Pattern pattern = Pattern.compile("2[0-9][0-9][0-9].(1[0-2]|0[1-9]).(3[0-1]|[0-2][1-9])\\s" +
+                "(2[0-4]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]");
+        Matcher matcher = pattern.matcher(date);
+        return matcher.find();
+    }
+
+    private boolean checkEmail(String email){
+        Pattern pattern = Pattern.compile("\\w+@\\w+.(com|ru)");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.find();
     }
 }

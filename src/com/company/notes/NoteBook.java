@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NoteBook {
 
@@ -139,6 +141,26 @@ public class NoteBook {
                 res.addNote(n);
             }
         }
+        return res;
+    }
+
+    public NoteBook findHasWord(String word, int k){
+        Pattern pattern = Pattern.compile(word);
+        Matcher matcher;
+        NoteBook res = new NoteBook();
+        for (Note n: notes) {
+            matcher = pattern.matcher(n.getMessage());
+            if (matcher.find()){
+                res.addNote(n);
+            }
+        }
+        return res;
+    }
+
+    public NoteBook findByEmailWord(String email, String word){
+        NoteBook res = new NoteBook();
+        res = this.findByEmail(email);
+        res = res.findHasWord(word);
         return res;
     }
 }
