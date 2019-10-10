@@ -12,9 +12,7 @@ public class Note {
     private String message;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
-    public Note() {
-    }
-
+    //constructor
     public Note(String theme, Date date, String email, String message) {
         this.theme = theme;
         this.date = date;
@@ -22,6 +20,7 @@ public class Note {
         this.message = message;
     }
 
+    //constructor
     public Note(String theme, String date, String email, String message) {
         try {
             Date d = dateFormat.parse(date);
@@ -34,38 +33,47 @@ public class Note {
         }
     }
 
+    //get method
     public String getTheme() {
         return theme;
     }
 
+    //set method
     public void setTheme(String theme) {
         this.theme = theme;
     }
 
+    //get method
     public Date getDate() {
         return date;
     }
 
+    //set method
     public void setDate(Date date) {
         this.date = date;
     }
 
+    //get method
     public String getEmail() {
         return email;
     }
 
+    //set method
     public void setEmail(String email) {
         this.email = email;
     }
 
+    //get method
     public String getMessage() {
         return message;
     }
 
+    //set method
     public void setMessage(String message) {
         this.message = message;
     }
 
+    //to string
     @Override
     public String toString() {
 
@@ -75,8 +83,10 @@ public class Note {
                 "message: " + message + "\n";
     }
 
+    //format date to string
     public String dateToString(){
         String res = dateFormat.format(date);
         return res;
     }
+
 }

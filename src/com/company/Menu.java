@@ -10,11 +10,13 @@ public class Menu {
 
     private NoteBook noteBook;
 
+    //init info
     public Menu() {
         noteBook = new NoteBook();
         noteBook.open();
     }
 
+    //main menu open
     public void mainMenu(){
         Scanner scanner = new Scanner(System.in);
         mainCommands();
@@ -27,6 +29,7 @@ public class Menu {
                     mainCommands();
                     break;
                 case "print":
+                    //print all notes
                     noteBook.print();
                     break;
                 case "sort":
@@ -39,6 +42,7 @@ public class Menu {
                     addMenu();
                     break;
                 case "exit":
+                    //write into file
                     noteBook.close();
                     exit = true;
                     break;
@@ -48,6 +52,7 @@ public class Menu {
         }
     }
 
+    //main menu commands
     private void mainCommands(){
         System.out.println("'commands' - to print commands");
         System.out.println("'print' - to print all");
@@ -57,6 +62,7 @@ public class Menu {
         System.out.println("'exit' - to exit");
     }
 
+    //sort menu
     public void sortMenu(NoteBook book){
         Scanner scanner = new Scanner(System.in);
         sortCommands();
@@ -69,14 +75,17 @@ public class Menu {
                     sortCommands();
                     break;
                 case "theme":
+                    //sort by theme
                     book.sortByTheme();
                     book.print();
                     break;
                 case "date":
+                    //sort by date
                     book.sortByDate();
                     book.print();
                     break;
                 case "email":
+                    //sort by email
                     book.sortByEmail();
                     book.print();
                     break;
@@ -89,6 +98,7 @@ public class Menu {
         }
     }
 
+    //sort menu commands
     private void sortCommands(){
         System.out.println("'commands' - to print commands");
         System.out.println("'theme' - to sort by theme");
@@ -97,6 +107,7 @@ public class Menu {
         System.out.println("'exit' - to exit");
     }
 
+    //find menu
     public void findMenu(){
         NoteBook res = noteBook;
         Scanner scanner = new Scanner(System.in);
@@ -128,6 +139,7 @@ public class Menu {
         }
     }
 
+    //find menu commands
     private void findCommands(){
         System.out.println("'commands' - to print commands");
         System.out.println("'theme' - to find by theme");
@@ -139,6 +151,7 @@ public class Menu {
         System.out.println("'exit' - to exit");
     }
 
+    //find by menu
     private NoteBook findBy(String command){
         Scanner scanner = new Scanner(System.in);
         String findWord;
@@ -146,22 +159,26 @@ public class Menu {
             case "theme":
                 System.out.println("insert theme");
                 findWord = scanner.nextLine();
+                //find by theme
                 return noteBook.findByTheme(findWord);
             case "date":
 //                do {
                     System.out.println("insert date");
                     findWord = scanner.nextLine();
 //                } while (!checkDate(findWord));
+                //find by date
                 return noteBook.findByDate(findWord);
             case "email":
 //                do {
                     System.out.println("insert email");
                     findWord = scanner.nextLine();
 //                } while (!checkEmail(findWord));
+                //find by email
                 return noteBook.findByEmail(findWord);
             case "word":
                 System.out.println("insert word");
                 findWord = scanner.nextLine();
+                //find by word
                 return noteBook.findHasWord(findWord);
 //                return noteBook.findHasWord(findWord, 1);
             case "ew":
@@ -169,11 +186,13 @@ public class Menu {
                 String email = scanner.nextLine();
                 System.out.println("insert word");
                 findWord = scanner.nextLine();
+                //find by email and word
                 return noteBook.findByEmailWord(email, findWord);
         }
         return new NoteBook();
     }
 
+    //add menu
     public void addMenu(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("insert theme");
@@ -194,10 +213,12 @@ public class Menu {
         System.out.println("insert text");
         line = scanner.nextLine();
         String text = line;
+        //add note
         noteBook.addNote(theme, date, email, text);
         System.out.println("added!!!");
     }
 
+    //check date format
     private boolean checkDate(String date){
         Pattern pattern = Pattern.compile("2[0-9][0-9][0-9].(1[0-2]|0[1-9]).(3[0-1]|[0-2][1-9])\\s" +
                 "(2[0-4]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]");
@@ -205,9 +226,11 @@ public class Menu {
         return matcher.find();
     }
 
+    //check email format
     private boolean checkEmail(String email){
         Pattern pattern = Pattern.compile("\\w+@\\w+.(com|ru)");
         Matcher matcher = pattern.matcher(email);
         return matcher.find();
     }
+
 }

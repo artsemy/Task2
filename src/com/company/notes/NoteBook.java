@@ -21,48 +21,44 @@ public class NoteBook {
 
     private Note[] notes;
 
+    //constructor
     public NoteBook() {
         notes = new Note[0];
     }
 
-    public NoteBook(Note[] notes) {
-        this.notes = notes;
-    }
-
-    public Note[] getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Note[] notes) {
-        this.notes = notes;
-    }
-
+    //add note
     public void addNote(Note note){
         notes = Arrays.copyOf(notes, notes.length+1);
         notes[notes.length-1] = note;
     }
 
+    //add note
     public void addNote(String theme, String date, String email, String text){
         Note note = new Note(theme, date, email, text);
         addNote(note);
     }
 
+    //sort by theme
     public void sortByTheme(){
         Arrays.sort(notes, new ThemeComparator());
     }
 
+    //sort by date
     public void sortByDate(){
         Arrays.sort(notes, new DateComparator());
     }
 
+    //sort by email
     public void sortByEmail(){
         Arrays.sort(notes, new EmailComparator());
     }
 
+    //init read from file
     public void open(){
         readFromFile();
     }
 
+    //read from file
     private void readFromFile(){
         Path path = Paths.get("./resources/notes.txt");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -80,10 +76,12 @@ public class NoteBook {
         }
     }
 
+    //close write to file
     public void close(){
         writeToFile();
     }
 
+    //write to file
     private void writeToFile(){
         File file = new File("./resources/notes.txt");
         try {
@@ -98,12 +96,14 @@ public class NoteBook {
         }
     }
 
+    //print notes
     public void print(){
         for (Note n: notes) {
             System.out.println(n);
         }
     }
 
+    //find by theme
     public NoteBook findByTheme(String theme){
         NoteBook res = new NoteBook();
         for (Note n: notes) {
@@ -114,6 +114,7 @@ public class NoteBook {
         return res;
     }
 
+    //find by date
     public NoteBook findByDate(String date){
         NoteBook res = new NoteBook();
         for (Note n: notes) {
@@ -124,6 +125,7 @@ public class NoteBook {
         return res;
     }
 
+    //find by email
     public NoteBook findByEmail(String email){
         NoteBook res = new NoteBook();
         for (Note n: notes) {
@@ -134,6 +136,7 @@ public class NoteBook {
         return res;
     }
 
+    //find by word
     public NoteBook findHasWord(String word){
         NoteBook res = new NoteBook();
         for (Note n: notes) {
@@ -144,6 +147,7 @@ public class NoteBook {
         return res;
     }
 
+    //find by word with regular exp
     public NoteBook findHasWord(String word, int k){
         Pattern pattern = Pattern.compile(word);
         Matcher matcher;
@@ -157,10 +161,12 @@ public class NoteBook {
         return res;
     }
 
+    //find by email and word
     public NoteBook findByEmailWord(String email, String word){
         NoteBook res = new NoteBook();
         res = this.findByEmail(email);
         res = res.findHasWord(word);
         return res;
     }
+
 }

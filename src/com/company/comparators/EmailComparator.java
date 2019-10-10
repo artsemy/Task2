@@ -4,6 +4,7 @@ import com.company.notes.Note;
 
 import java.util.Comparator;
 
+//email comparator
 public class EmailComparator implements Comparator<Note> {
     @Override
     public int compare(Note o1, Note o2) {
